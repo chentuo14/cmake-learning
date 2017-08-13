@@ -1,2 +1,2 @@
 # cmake-learning
-# write a hello world for cmake
+I write a hello world for cmake.2017/8/13
