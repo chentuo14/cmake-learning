@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTextEdit>
 
+
 class MdiChild : public QTextEdit
 {
     Q_OBJECT
