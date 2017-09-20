@@ -14,6 +14,8 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
+private slots:
+    void openAction();
 
 private:
     Ui::Widget *ui;
