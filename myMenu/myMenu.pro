@@ -25,10 +25,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        widget.cpp
+        widget.cpp \
+    myopendialog.cpp
 
 HEADERS += \
-        widget.h
+        widget.h \
+    myopendialog.h
 
 FORMS += \
-        widget.ui
+        widget.ui \
+    myopendialog.ui

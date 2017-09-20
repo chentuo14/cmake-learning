@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include "myopendialog.h"
 
 namespace Ui {
 class Widget;
@@ -19,6 +20,7 @@ private slots:
 
 private:
     Ui::Widget *ui;
+    MyOpenDialog *myOpenDialog;
 };
 
 #endif // WIDGET_H

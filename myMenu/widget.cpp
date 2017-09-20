@@ -7,6 +7,8 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    myOpenDialog = new MyOpenDialog(this);
+
     setWindowTitle(tr("右键菜单显示"));
     QAction *openAct = new QAction(tr("&open"),this);
     openAct->setStatusTip("Open a file");
@@ -28,4 +30,5 @@ Widget::~Widget()
 void Widget::openAction()
 {
     qDebug()<<"this is open";
+    myOpenDialog->show();
 }
