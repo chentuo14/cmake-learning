@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMdiSubWindow>
+#include "mdichild.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -66,7 +67,7 @@ MdiChild *MainWindow::createMdiChild()
     connect(child, SIGNAL(copyAvailable(bool)), ui->actionCopy, SLOT(setEnabled(bool)));
     //根据QTextDocument类的是否可以撤销恢复信号设置撤销恢复动作是否可用
     connect(child->document(), SIGNAL(undoAvailable(bool)), ui->actionUndo, SLOT(setEnabled(bool)));
-    connect(child->document(), SIGNAL(redoAvailable(bool)), ui->actionRedo, SLOT(setEnable(bool)));
+    connect(child->document(), SIGNAL(redoAvailable(bool)), ui->actionRedo, SLOT(setEnabled(bool)));
 
     return child;
 }
@@ -78,9 +79,6 @@ MdiChild *MainWindow::activeMdiChild()
         return qobject_cast<MdiChild *>(activeSubWindow->widget());
     return 0;
 }
-
-
-
 
 void MainWindow::on_actionNew_triggered()
 {
