@@ -7,6 +7,7 @@
 #include <QFileDialog>
 #include <QCloseEvent>
 #include <QPushButton>
+#include <QMenu>
 
 MdiChild::MdiChild(QWidget *parent)
 {
@@ -135,6 +136,38 @@ void MdiChild::closeEvent(QCloseEvent *event)
     } else {
         event->ignore();
     }
+}
+
+void MdiChild::contextMenuEvent(QContextMenuEvent *e)
+{
+    //创建菜单，并向其中添加动作
+    QMenu *menu = new QMenu;
+    QAction *undo = menu->addAction(tr("撤销(&U)"), this,
+                                    SLOT(undo()), QKeySequence::Undo);
+    undo->setEnabled(document()->isUndoAvailable());
+    QAction *redo = menu->addAction(tr("恢复(&R)"), this,
+                                    SLOT(redo()), QKeySequence::Redo);
+    redo->setEnabled(document()->isRedoAvailable());
+    menu->addSeparator();
+    QAction *cut = menu->addAction(tr("剪切(&T)"), this,
+                                   SLOT(cut()), QKeySequence::Cut);
+    cut->setEnabled(textCursor().hasSelection());
+    QAction *copy = menu->addAction(tr("复制(&C)"), this,
+                                    SLOT(copy()), QKeySequence::Copy);
+    copy->setEnabled(textCursor().hasSelection());
+    menu->addAction(tr("粘贴(&P)"), this, SLOT(paste()), QKeySequence::Paste);
+    QAction *clear = menu->addAction(tr("清空"), this, SLOT(clear()));
+    clear->setEnabled(!document()->isEmpty());
+    menu->addSeparator();
+    QAction *select = menu->addAction(tr("全选"), this,
+                                      SLOT(selectAll()), QKeySequence::SelectAll);
+    select->setEnabled(!document()->isEmpty());
+
+    //获取鼠标的位置，然后再这个位置显示菜单
+    menu->exec(e->globalPos());
+
+    //最后销毁这个菜单
+    delete menu;
 }
 
 bool MdiChild::maybeSave()
